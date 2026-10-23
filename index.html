@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paulino Aguilar | Portafolio</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+    <div id="video-intro-container">
+        <video id="video-intro" autoplay muted playsinline>
+            <source src="video/intro.mp4" type="video/mp4">
+            Tu navegador no soporta video.
+        </video>
+    </div>
+
+    <header>
+        <nav class="nav-principal">
+            <div class="logo-contenedor">
+                <img src="img/logo-aguila.png" alt="Logo Aguilar" class="logo-nav">
+            </div>
+            
+            <ul class="menu-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="galeria.html">Galería</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="experiencias.html">Experiencias</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <section id="sobre-mi">
+            <h1 class="titulo-seccion">Sobre Mí</h1>
+            <div class="intro">
+                <img src="img/Mi-foto.jpg" alt="Paulino Aguilar" class="foto-perfil">
+                <div class="texto-presentacion">
+                    <p>Soy diseñador digital especializado en ilustración y producción audiovisual. Mi objetivo es transformar ideas en experiencias visuales impactantes, combinando estética cibernética con narrativa visual.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="intro-trabajo">
+            <h2 class="titulo-seccion">Un vistazo a mi trabajo</h2>
+            <div class="fotos-intro">
+                <img src="img/preview1.png" alt="Preview 1">
+                <img src="img/preview2.jpg" alt="Preview 2">
+            </div>
+        </section>
+
+        <section id="contacto">
+            <h2 class="titulo-seccion">Contacto</h2>
+            <div class="contacto-datos">
+                <p><strong>Email:</strong> cesargeovanniaguilarb2@gmail.com</p>
+                <p><strong>Instagram:</strong> @cgp_aguilar</p>
+                <p><strong>Facebook:</strong> cgp_aguilar</p>
+                <p><strong>Tel:</strong> 418 152 7843</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Paulino Aguilar &copy; 2026 | Portafolio Profesional</p>
+    </footer>
+
+    <script>
+        const video = document.getElementById('video-intro');
+        const container = document.getElementById('video-intro-container');
+
+        video.onended = function() {
+            container.classList.add('hidden-intro'); 
+            setTimeout(() => {
+                container.style.display = 'none'; 
+            }, 1000);
+        };
+
+        container.onclick = function() {
+            container.style.display = 'none';
+        };
+    </script>
+
+</body>
+</html>

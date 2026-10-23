@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Creativa | Paulino Aguilar</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+   <header>
+    <nav class="nav-principal">
+        <div class="logo-contenedor">
+            <img src="img/logo-aguila.png" alt="Logo Aguilar" class="logo-nav">
+        </div>
+        
+        <ul class="menu-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="galeria.html">Galería</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="experiencias.html">Experiencias</a></li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="container">
+        
+        <div class="header-galeria">
+            <h1 class="titulo-seccion">Mi Portafolio Creativo</h1>
+            <p class="subtitulo">Explora mis últimos proyectos de ilustración y video. Utiliza los controles para navegar.</p>
+        </div>
+
+        <section class="carrusel-completo">
+            
+            <input type="radio" name="slider" id="item-1" checked>
+            <input type="radio" name="slider" id="item-2">
+            <input type="radio" name="slider" id="item-3">
+
+            <div class="slides">
+                <div class="slide" id="slide-1">
+                    <img src="img/dibujo-grande1.jpeg" alt="Ilustración Destacada">
+                    <div class="info-slide">
+                        <h3>Freddy Krueger: Arte Conceptual</h3>
+                    </div>
+                </div>
+
+                <div class="slide" id="slide-2">
+                    <video controls muted>
+                        <source src="video/animacion-galeria.mp4" type="video/mp4">
+                    </video>
+                    <div class="info-slide">
+                        <h3>Animación 2D: Reel de trabajos</h3>
+                    </div>
+                </div>
+
+                <div class="slide" id="slide-3">
+                    <img src="img/dibujo-grande2.png" alt="Diseño de Personajes">
+                    <div class="info-slide">
+                        <h3>Ilustración Digital</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navegacion-carrusel">
+                <label for="item-1" class="dot"></label>
+                <label for="item-2" class="dot"></label>
+                <label for="item-3" class="dot"></label>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Paulino Aguilar &copy; 2026</p>
+    </footer>
+
+</body>
+</html>
