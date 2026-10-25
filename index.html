@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cesar Paulino Aguilar - Portafolio Profesional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --card-bg: #131a2a;
+      --accent-color: #3b82f6;
+      --accent-hover: #60a5fa;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --nav-bg: rgba(11, 15, 25, 0.95);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+
+    /* INTRO ANIMADA A PANTALLA COMPLETA */
+    #intro-screen {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: #000;
+      display: flex; justify-content: center; align-items: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease;
+    }
+    #intro-screen video { width: 100%; height: 100%; object-fit: cover; }
+
+    /* NAVEGACIÓN */
+    header { position: fixed; top: 0; left: 0; width: 100%; background: var(--nav-bg); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+    nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    .logo-container img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+    .nav-links { display: flex; list-style: none; gap: 1.2rem; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--accent-color); }
+
+    /* SECCIONES GENERALES */
+    section { padding: 6rem 2rem 3rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .section-title { font-size: 2.2rem; text-align: center; color: var(--accent-color); margin-bottom: 2rem; position: relative; }
+    .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent-color); margin: 0.5rem auto 0 auto; border-radius: 2px; }
+    .sub-title { font-size: 1.4rem; color: var(--text-main); margin: 2rem 0 1rem 0; text-align: center; }
+
+    /* SOBRE MÍ */
+    #inicio { min-height: 90vh; display: flex; align-items: center; justify-content: center; padding-top: 8rem; }
+    .hero-card { background: var(--card-bg); border-radius: 16px; padding: 3rem; display: flex; align-items: center; gap: 2.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); }
+    .hero-img { width: 200px; height: 200px; border-radius: 12px; object-fit: cover; }
+    .hero-content h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .hero-content h2 { font-size: 1.2rem; color: var(--accent-color); font-weight: 400; margin-bottom: 1rem; }
+    .hero-content p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* CARRUSELES */
+    .carousel-container { position: relative; max-width: 900px; margin: 0 auto; overflow: hidden; border-radius: 12px; background: #05070d; box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+    .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
+    .carousel-slide { min-width: 100%; height: 450px; position: relative; display: flex; justify-content: center; align-items: center; }
+    .carousel-slide img, .carousel-slide video { width: 100%; height: 100%; object-fit: contain; }
+    .carousel-caption { position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: #fff; padding: 1.5rem 1rem 1rem 1rem; text-align: center; font-size: 1rem; }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.6); color: white; border: none; font-size: 1.8rem; padding: 0.4rem 0.8rem; cursor: pointer; border-radius: 50%; z-index: 10; transition: background 0.3s; }
+    .carousel-btn:hover { background: var(--accent-color); }
+    .btn-prev { left: 15px; } .btn-next { right: 15px; }
+
+    /* SECCIÓN INTERCALADA (PROCESO + RESULTADO) */
+    .intercalada-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .intercalada-card { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.05); }
+    .intercalada-card img, .intercalada-card video { width: 100%; height: 280px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+    .intercalada-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .intercalada-card p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* GRID DE FOTOGRAFÍA / SESIONES */
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .photo-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+    .photo-card img { width: 100%; height: 240px; object-fit: cover; }
+    .photo-card .photo-info { padding: 1rem; }
+    .photo-card h4 { font-size: 1rem; margin-bottom: 0.3rem; }
+
+    /* SERVICIOS Y EXPERIENCIA */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .service-card { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+    .service-number { font-size: 1.8rem; font-weight: 700; color: var(--accent-color); margin-bottom: 0.5rem; }
+    .service-card h3 { font-size: 1.2rem; margin-bottom: 0.8rem; }
+    .service-card p { color: var(--text-muted); font-size: 0.9rem; }
+
+    .experience-container { display: flex; flex-direction: column; gap: 1.5rem; }
+    .exp-item { background: var(--card-bg); padding: 1.5rem 2rem; border-radius: 12px; border-left: 4px solid var(--accent-color); }
+    .exp-item h3 { font-size: 1.2rem; }
+    .exp-item .role { color: var(--accent-color); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .exp-item p { color: var(--text-muted); font-size: 0.9rem; }
+
+    footer { text-align: center; padding: 3rem 1rem; background: #05070d; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      .hero-card { flex-direction: column; text-align: center; padding: 2rem; }
+      .nav-links { justify-content: center; }
+      .carousel-slide { height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INTRO ANIMADA A PANTALLA COMPLETA -->
+  <div id="intro-screen">
+    <video src="video/intro.mp4" autoplay muted playsinline></video>
+  </div>
+
+  <!-- NAVEGACIÓN -->
+  <header>
+    <nav>
+      <div class="logo-container">
+        <img src="img/logo-aguila.jpeg" alt="Logo" onerror="this.style.display='none'">
+      </div>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#tradicional">Tradicional</a></li>
+        <li><a href="#digital">Digital</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#fotografia">Fotografía</a></li>
+        <li><a href="#animacion">Animación</a></li>
+        <li><a href="#modelado">3D Maya</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- INICIO / SOBRE MÍ -->
+  <section id="inicio">
+    <div class="hero-card">
+      <img src="img/Mi-foto.jpg" alt="Cesar Paulino" class="hero-img">
+      <div class="hero-content">
+        <h1>Sobre Mí</h1>
+        <h2>Diseñador Digital & Creador Audiovisual</h2>
+        <p>
+          Especializado en ilustración tradicional y digital, concept art, modelado 3D y producción audiovisual. Transformo ideas narrativas en piezas visuales profesionales.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 1: DIBUJO TRADICIONAL (CARRUSEL) -->
+  <section id="tradicional">
+    <h2 class="section-title">Dibujo Tradicional</h2>
+    <div class="carousel-container" id="carousel-trad">
+      <button class="carousel-btn btn-prev" onclick="moveSlide('trad', -1)">&#10094;</button>
+      <button class="carousel-btn btn-next" onclick="moveSlide('trad', 1)">&#10095;</button>
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="img/dibujotradicional1.png" alt="Tradicional 1"><div class="carousel-caption">Dibujo Tradicional 1</div></div>
+        <div class="carousel-slide"><img src="img/dibujotradicional2.png" alt="Tradicional 2"><div class="carousel-caption">Dibujo Tradicional 2</div></div>
+        <div class="carousel-slide"><img src="img/dibujotradicional3.png" alt="Tradicional 3"><div class="carousel-caption">Dibujo Tradicional 3</div></div>
+        <div class="carousel-slide"><img src="img/dibujotradicional4.png" alt="Tradicional 4"><div class="carousel-caption">Dibujo Tradicional 4</div></div>
+        <div class="carousel-slide"><img src="img/dibujotradicional5.png" alt="Tradicional 5"><div class="carousel-caption">Dibujo Tradicional 5</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: ILUSTRACIÓN DIGITAL (CARRUSEL) -->
+  <section id="digital">
+    <h2 class="section-title">Ilustración Digital</h2>
+    <div class="carousel-container" id="carousel-dig">
+      <button class="carousel-btn btn-prev" onclick="moveSlide('dig', -1)">&#10094;</button>
+      <button class="carousel-btn btn-next" onclick="moveSlide('dig', 1)">&#10095;</button>
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="img/spidey.png" alt="Spidey"><div class="carousel-caption">Ilustración Digital - Spidey</div></div>
+        <div class="carousel-slide"><img src="img/dibujo-grande1.jpeg" alt="Dibujo Grande"><div class="carousel-caption">Arte Detallado & Tinta Digital</div></div>
+        <div class="carousel-slide"><img src="img/IlustracionDigitalVans1.png" alt="Vans"><div class="carousel-caption">Concept Art & Personaje</div></div>
+        <div class="carousel-slide"><img src="img/dibujo-gran-de2.png" alt="Dibujo 2"><div class="carousel-caption">Ilustración Estilizada</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3: ILUSTRACIÓN INTERCALADA (PROCESO + RESULTADO) -->
+  <section id="proceso">
+    <h2 class="section-title">Proceso Creativo & Trabajos Intercalados</h2>
+    <div class="intercalada-grid">
+      <div class="intercalada-card">
+        <video src="video/IlustraciondigitalProceso.mp4" controls></video>
+        <h3>Proceso de Ilustración</h3>
+        <p>Video de timelapse mostrando el desarrollo paso a paso del trazo y color.</p>
+      </div>
+      <div class="intercalada-card">
+        <img src="img/ResultadoFinal.png" alt="Resultado Final">
+        <h3>Resultado Final</h3>
+        <p>Pieza terminada aplicando técnicas de acabado digital e iluminación.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 4: FOTOGRAFÍA Y SESIONES -->
+  <section id="fotografia">
+    <h2 class="section-title">Fotografía y Sesiones</h2>
+    
+    <h3 class="sub-title">Sesión Temática: Chucky</h3>
+    <div class="photo-grid" style="margin-bottom: 2rem;">
+      <div class="photo-card"><img src="img/SesionDeFotosChucky1.jpeg" alt="Chucky 1"><div class="photo-info"><h4>Chucky - Toma 1</h4></div></div>
+      <div class="photo-card"><img src="img/SesionDeFotosChucky2.jpeg" alt="Chucky 2"><div class="photo-info"><h4>Chucky - Toma 2</h4></div></div>
+      <div class="photo-card"><img src="img/SesionDeFotosChucky3.jpeg" alt="Chucky 3"><div class="photo-info"><h4>Chucky - Toma 3</h4></div></div>
+      <div class="photo-card"><img src="img/SesionDeFotosChucky4.jpeg" alt="Chucky 4"><div class="photo-info"><h4>Chucky - Toma 4</h4></div></div>
+      <div class="photo-card"><img src="img/SesionDeFotosChucky5.jpeg" alt="Chucky 5"><div class="photo-info"><h4>Chucky - Toma 5</h4></div></div>
+    </div>
+
+    <h3 class="sub-title">Sesiones Edu & Urbanas</h3>
+    <div class="photo-grid" style="margin-bottom: 2rem;">
+      <div class="photo-card"><img src="img/Edu1.jpg" alt="Edu 1"><div class="photo-info"><h4>Sesión Edu 1</h4></div></div>
+      <div class="photo-card"><img src="img/Edu2.jpg" alt="Edu 2"><div class="photo-info"><h4>Sesión Edu 2</h4></div></div>
+      <div class="photo-card"><img src="img/Edu3.jpg" alt="Edu 3"><div class="photo-info"><h4>Sesión Edu 3</h4></div></div>
+      <div class="photo-card"><img src="img/Edu4.jpg" alt="Edu 4"><div class="photo-info"><h4>Sesión Edu 4</h4></div></div>
+      <div class="photo-card"><img src="img/Edu5.jpg" alt="Edu 5"><div class="photo-info"><h4>Sesión Edu 5</h4></div></div>
+    </div>
+
+    <!-- 1. FOTOGRAFÍA DE PRODUCTO (5 fotos) -->
+    <h3 class="sub-title">Fotografía de Producto</h3>
+    <div class="photo-grid" style="margin-bottom: 2rem;">
+      <div class="photo-card"><img src="img/FotografiadeProducto1.jpeg" alt="Producto 1"><div class="photo-info"><h4>Producto 1</h4></div></div>
+      <div class="photo-card"><img src="img/FotografiadeProducto2.jpeg" alt="Producto 2"><div class="photo-info"><h4>Producto 2</h4></div></div>
+      <div class="photo-card"><img src="img/FotografiadeProducto3.jpeg" alt="Producto 3"><div class="photo-info"><h4>Producto 3</h4></div></div>
+      <div class="photo-card"><img src="img/FotografiadeProducto4.jpeg" alt="Producto 4"><div class="photo-info"><h4>Producto 4</h4></div></div>
+      <div class="photo-card"><img src="img/FotografiadeProducto5.jpeg" alt="Producto 5"><div class="photo-info"><h4>Producto 5</h4></div></div>
+    </div>
+
+    <!-- 2. DOLORES HIDALGO (3 fotos) -->
+    <h3 class="sub-title">Dolores Hidalgo</h3>
+    <div class="photo-grid" style="margin-bottom: 2rem;">
+      <div class="photo-card"><img src="img/Dolo1.jpg" alt="Dolo 1"><div class="photo-info"><h4>Dolores Hidalgo 1</h4></div></div>
+      <div class="photo-card"><img src="img/Dolo2.jpg" alt="Dolo 2"><div class="photo-info"><h4>Dolores Hidalgo 2</h4></div></div>
+      <div class="photo-card"><img src="img/Dolo3.jpg" alt="Dolo 3"><div class="photo-info"><h4>Dolores Hidalgo 3</h4></div></div>
+    </div>
+
+    <!-- 3. DOLORES MÁGICO (2 fotos) -->
+    <h3 class="sub-title">Dolores Mágico</h3>
+    <div class="photo-grid">
+      <div class="photo-card"><img src="img/DoloresMagico1.jpeg" alt="Magico 1"><div class="photo-info"><h4>Dolores Mágico 1</h4></div></div>
+      <div class="photo-card"><img src="img/DoloresMagico2.jpeg" alt="Magico 2"><div class="photo-info"><h4>Dolores Mágico 2</h4></div></div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 5: ANIMACIÓN -->
+  <section id="animacion">
+    <h2 class="section-title">Animación</h2>
+    <div class="carousel-container" id="carousel-anim">
+      <button class="carousel-btn btn-prev" onclick="moveSlide('anim', -1)">&#10094;</button>
+      <button class="carousel-btn btn-next" onclick="moveSlide('anim', 1)">&#10095;</button>
+      <div class="carousel-track">
+        <div class="carousel-slide">
+          <video src="video/animacion-galeria.mp4" controls></video>
+          <div class="carousel-caption">Animación - Galería</div>
+        </div>
+        <div class="carousel-slide">
+          <video src="video/demo-animacion.mp4" controls></video>
+          <div class="carousel-caption">Demo de Animación</div>
+        </div>
+        <div class="carousel-slide">
+          <video src="video/AnimacionDeliricas.mp4" controls></video>
+          <div class="carousel-caption">Animación de Líricas</div>
+        </div>
+        <div class="carousel-slide">
+          <video src="video/AnimacionFormas.mp4" controls></video>
+          <div class="carousel-caption">Animación de Formas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 6: PRODUCCIÓN AUDIOVISUAL -->
+  <section id="produccion">
+    <h2 class="section-title">Producción Audiovisual</h2>
+    <div class="carousel-container" id="carousel-prod">
+      <button class="carousel-btn btn-prev" onclick="moveSlide('prod', -1)">&#10094;</button>
+      <button class="carousel-btn btn-next" onclick="moveSlide('prod', 1)">&#10095;</button>
+      <div class="carousel-track">
+        <div class="carousel-slide">
+          <video src="video/demo-produccion.mp4" controls></video>
+          <div class="carousel-caption">Demo de Producción y Montaje</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 7: MODELADO 3D (MAYA) -->
+  <section id="modelado">
+    <h2 class="section-title">Modelado 3D (Maya)</h2>
+    <div class="carousel-container" id="carousel-maya">
+      <button class="carousel-btn btn-prev" onclick="moveSlide('maya', -1)">&#10094;</button>
+      <button class="carousel-btn btn-next" onclick="moveSlide('maya', 1)">&#10095;</button>
+      <div class="carousel-track">
+        <div class="carousel-slide">
+          <video src="video/Modelado3denMaya1.mp4" controls></video>
+          <div class="carousel-caption">Modelado 3D en Autodesk Maya - Escena 1</div>
+        </div>
+        <div class="carousel-slide">
+          <video src="video/Modelado3denMaya2.mp4" controls></video>
+          <div class="carousel-caption">Modelado 3D en Autodesk Maya - Escena 2</div>
+        </div>
+        <div class="carousel-slide">
+          <video src="video/Modelado3denMaya3.mp4" controls></video>
+          <div class="carousel-caption">Modelado 3D en Autodesk Maya - Escena 3</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <h2 class="section-title">Servicios Profesionales</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <h3>Ilustración Digital y Tradicional</h3>
+        <p>Creación de personajes, arte conceptual y técnicas mixtas con atención al detalle y enfoque narrativo.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <h3>Producción Audiovisual y Animación</h3>
+        <p>Edición, montaje, corrección de color y animación multimedia para proyectos y cortometrajes.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <h3>Modelado 3D & Fotografía</h3>
+        <p>Desarrollo de assets en Autodesk Maya, sesiones fotográficas temáticas y de producto.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Cesar Paulino Aguilar - Portafolio de Diseño Digital</p>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    // Intro animada a pantalla completa
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const intro = document.getElementById('intro-screen');
+        intro.style.opacity = '0';
+        setTimeout(() => intro.style.display = 'none', 800);
+      }, 3500);
+    });
+
+    // Carruseles múltiples
+    const indexes = { trad: 0, dig: 0, anim: 0, prod: 0, maya: 0 };
+
+    function moveSlide(id, direction) {
+      const container = document.getElementById(`carousel-${id}`);
+      const track = container.querySelector('.carousel-track');
+      const slides = track.querySelectorAll('.carousel-slide');
+      const totalSlides = slides.length;
+
+      indexes[id] += direction;
+
+      if (indexes[id] < 0) {
+        indexes[id] = totalSlides - 1;
+      } else if (indexes[id] >= totalSlides) {
+        indexes[id] = 0;
+      }
+
+      track.style.transform = `translateX(-${indexes[id] * 100}%)`;
+    }
+  </script>
+</body>
+</html>
